@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102225008) do
+ActiveRecord::Schema.define(version: 20171102231653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "clans", force: :cascade do |t|
+    t.string "clan_name"
+    t.string "website"
+    t.string "abbreviation"
+    t.string "encrypted_password"
+    t.boolean "open_for_applications"
+    t.string "emblem_url"
+    t.string "description"
+  end
 
   create_table "statistics", force: :cascade do |t|
     t.decimal "kda"
