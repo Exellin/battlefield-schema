@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171103020659) do
+ActiveRecord::Schema.define(version: 20171103052105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,15 @@ ActiveRecord::Schema.define(version: 20171103020659) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "nation_moderators", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "nation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["nation_id"], name: "index_nation_moderators_on_nation_id"
+    t.index ["user_id"], name: "index_nation_moderators_on_user_id"
+  end
+
   create_table "nations", force: :cascade do |t|
     t.string "nation_name"
     t.string "abbreviation"
@@ -41,6 +50,14 @@ ActiveRecord::Schema.define(version: 20171103020659) do
     t.string "emblem_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "platoons", force: :cascade do |t|
+    t.string "platoon_name"
+    t.bigint "nation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["nation_id"], name: "index_platoons_on_nation_id"
   end
 
   create_table "roster_users", force: :cascade do |t|
@@ -100,6 +117,9 @@ ActiveRecord::Schema.define(version: 20171103020659) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "nation_moderators", "nations"
+  add_foreign_key "nation_moderators", "users"
+  add_foreign_key "platoons", "nations"
   add_foreign_key "roster_users", "rosters"
   add_foreign_key "roster_users", "users"
   add_foreign_key "statistics", "users"

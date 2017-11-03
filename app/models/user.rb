@@ -8,4 +8,5 @@ class User < ApplicationRecord
   has_one :statistic
   has_many :roster_users
   has_many :rosters, through: :roster_users
+  has_one :nation_moderator
 end
