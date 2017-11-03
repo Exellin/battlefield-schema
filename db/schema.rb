@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102235837) do
+ActiveRecord::Schema.define(version: 20171103020659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,22 @@ ActiveRecord::Schema.define(version: 20171102235837) do
     t.integer "large_flag_file_size"
     t.datetime "large_flag_updated_at"
     t.string "emblem_url"
+  end
+
+  create_table "roster_users", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "roster_id", null: false
+    t.boolean "team_leader", default: false
+    t.index ["roster_id"], name: "index_roster_users_on_roster_id"
+    t.index ["user_id"], name: "index_roster_users_on_user_id"
+  end
+
+  create_table "rosters", force: :cascade do |t|
+    t.string "roster_name"
+    t.integer "game_mode"
+    t.integer "owner_id", null: false
+    t.string "owner_type", null: false
+    t.index ["owner_id", "owner_type"], name: "index_rosters_on_owner_id_and_owner_type"
   end
 
   create_table "statistics", force: :cascade do |t|
@@ -76,5 +92,7 @@ ActiveRecord::Schema.define(version: 20171102235837) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "roster_users", "rosters"
+  add_foreign_key "roster_users", "users"
   add_foreign_key "statistics", "users"
 end
