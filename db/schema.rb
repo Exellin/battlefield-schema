@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171103055523) do
+ActiveRecord::Schema.define(version: 20171103190932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,28 @@ ActiveRecord::Schema.define(version: 20171103055523) do
     t.integer "roster_size_type"
     t.integer "min_roster_size"
     t.integer "max_roster_size"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "lineup_users", force: :cascade do |t|
+    t.bigint "lineup_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lineup_id"], name: "index_lineup_users_on_lineup_id"
+    t.index ["user_id"], name: "index_lineup_users_on_user_id"
+  end
+
+  create_table "lineups", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "match_id", null: false
+    t.index ["match_id"], name: "index_lineups_on_match_id"
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.integer "game_mode"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -98,7 +120,9 @@ ActiveRecord::Schema.define(version: 20171103055523) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "competition_id"
+    t.integer "match_id"
     t.index ["competition_id"], name: "index_rosters_on_competition_id"
+    t.index ["match_id"], name: "index_rosters_on_match_id"
     t.index ["owner_id", "owner_type"], name: "index_rosters_on_owner_id_and_owner_type"
   end
 
@@ -143,6 +167,9 @@ ActiveRecord::Schema.define(version: 20171103055523) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "lineup_users", "lineups"
+  add_foreign_key "lineup_users", "users"
+  add_foreign_key "lineups", "matches"
   add_foreign_key "nation_moderators", "nations"
   add_foreign_key "nation_moderators", "users"
   add_foreign_key "platoons", "nations"
