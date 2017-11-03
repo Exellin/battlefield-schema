@@ -3,4 +3,5 @@ class Nation < ApplicationRecord
   has_attached_file :small_flag
 
   has_many :rosters, as: :owner
+  has_many :users
 end

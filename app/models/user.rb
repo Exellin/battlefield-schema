@@ -9,4 +9,6 @@ class User < ApplicationRecord
   has_many :roster_users
   has_many :rosters, through: :roster_users
   has_one :nation_moderator
+  belongs_to :clan, optional: true
+  belongs_to :nation, optional: true
 end
