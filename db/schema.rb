@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171103054131) do
+ActiveRecord::Schema.define(version: 20171103055523) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,26 @@ ActiveRecord::Schema.define(version: 20171103054131) do
     t.boolean "open_for_applications"
     t.string "emblem_url"
     t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "competitions", force: :cascade do |t|
+    t.integer "competition"
+    t.integer "competition_region"
+    t.string "competition_name"
+    t.integer "competition_type"
+    t.integer "roster_types"
+    t.integer "game_mode"
+    t.integer "number_of_teams"
+    t.integer "registration"
+    t.integer "seed"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer "score_reporting"
+    t.integer "roster_size_type"
+    t.integer "min_roster_size"
+    t.integer "max_roster_size"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -77,6 +97,8 @@ ActiveRecord::Schema.define(version: 20171103054131) do
     t.string "owner_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "competition_id"
+    t.index ["competition_id"], name: "index_rosters_on_competition_id"
     t.index ["owner_id", "owner_type"], name: "index_rosters_on_owner_id_and_owner_type"
   end
 
