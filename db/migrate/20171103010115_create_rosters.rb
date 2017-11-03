@@ -6,6 +6,7 @@ class CreateRosters < ActiveRecord::Migration[5.1]
       t.integer :owner_id, null: false
       t.string :owner_type, null: false
       t.index [:owner_id, :owner_type]
+      t.timestamps
     end
   end
 end

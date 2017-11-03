@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 20171103020659) do
     t.boolean "open_for_applications"
     t.string "emblem_url"
     t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "nations", force: :cascade do |t|
@@ -37,12 +39,16 @@ ActiveRecord::Schema.define(version: 20171103020659) do
     t.integer "large_flag_file_size"
     t.datetime "large_flag_updated_at"
     t.string "emblem_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "roster_users", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "roster_id", null: false
     t.boolean "team_leader", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["roster_id"], name: "index_roster_users_on_roster_id"
     t.index ["user_id"], name: "index_roster_users_on_user_id"
   end
@@ -52,6 +58,8 @@ ActiveRecord::Schema.define(version: 20171103020659) do
     t.integer "game_mode"
     t.integer "owner_id", null: false
     t.string "owner_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["owner_id", "owner_type"], name: "index_rosters_on_owner_id_and_owner_type"
   end
 

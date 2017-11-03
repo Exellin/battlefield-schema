@@ -8,6 +8,7 @@ class CreateClan < ActiveRecord::Migration[5.1]
       t.boolean :open_for_applications
       t.string :emblem_url
       t.string :description
+      t.timestamps
     end
   end
 end
