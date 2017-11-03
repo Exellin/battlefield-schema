@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102231653) do
+ActiveRecord::Schema.define(version: 20171102235837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,20 @@ ActiveRecord::Schema.define(version: 20171102231653) do
     t.boolean "open_for_applications"
     t.string "emblem_url"
     t.string "description"
+  end
+
+  create_table "nations", force: :cascade do |t|
+    t.string "nation_name"
+    t.string "abbreviation"
+    t.string "small_flag_file_name"
+    t.string "small_flag_content_type"
+    t.integer "small_flag_file_size"
+    t.datetime "small_flag_updated_at"
+    t.string "large_flag_file_name"
+    t.string "large_flag_content_type"
+    t.integer "large_flag_file_size"
+    t.datetime "large_flag_updated_at"
+    t.string "emblem_url"
   end
 
   create_table "statistics", force: :cascade do |t|
